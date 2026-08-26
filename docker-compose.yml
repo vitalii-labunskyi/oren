@@ -1,0 +1,28 @@
+services:
+  oren-web:
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    env_file: .env
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3100:3000" # назовні — тільки через Caddy
+    networks:
+      - oren
+
+  oren-collector:
+    build:
+      context: .
+      target: collector
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - oren
+
+networks:
+  oren:
