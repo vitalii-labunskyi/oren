@@ -9,7 +9,7 @@ services:
     env_file: .env
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3100:3000" # назовні — тільки через Caddy
+      - "127.0.0.1:3100:3000" # назовні — тільки через reverse proxy
     networks:
       - oren
 
