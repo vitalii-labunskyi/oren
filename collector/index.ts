@@ -1,10 +1,11 @@
 import { pruneOldSnapshots, writePollResult } from "./db";
 import type { Provider } from "./types";
 import { serverProvider } from "./providers/server";
-// Phase 1–2: сюди додаються n8n, supabase, clickup, agents
+import { n8nProvider } from "./providers/n8n";
+// Phase 2: сюди додаються supabase, clickup, agents
 // (інтерфейс той самий: poll() → { status, summary, metrics, events })
 
-const providers: Provider[] = [serverProvider];
+const providers: Provider[] = [serverProvider, n8nProvider];
 
 async function runOnce(provider: Provider) {
   try {
